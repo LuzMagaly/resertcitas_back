@@ -1,0 +1,182 @@
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS public."Roles"
+(
+    "Id" INTEGER NOT NULL,
+    "Nombre" VARCHAR(255) NOT NULL,
+    "Nivel" INTEGER NULL DEFAULT 0,
+    CONSTRAINT "PK_Roles" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."Permisos"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Nombre" VARCHAR(255) NOT NULL,
+    "Descripcion" VARCHAR(1000) DEFAULT NULL,
+    "Nivel" VARCHAR(2) DEFAULT NULL,
+    "Objetivo" VARCHAR(200) DEFAULT NULL,
+    "Estado" VARCHAR(20) NOT NULL,
+    CONSTRAINT "PK_Permisos" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."Usuarios"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Id_Rol" INTEGER REFERENCES public."Roles"("Id") MATCH SIMPLE NOT NULL DEFAULT 1,
+    "DNI" VARCHAR(12) NOT NULL,
+    "Nombres" VARCHAR(80) NOT NULL,
+    "Apellido_Paterno" VARCHAR(80) NOT NULL,
+    "Apellido_Materno" VARCHAR(80) NOT NULL,
+    "Fecha_Nacimiento" VARCHAR(30) DEFAULT NULL,
+    "Direccion" VARCHAR(80) DEFAULT NULL,
+    "Telefono" VARCHAR(15) DEFAULT NULL,
+    "Correo" VARCHAR(50) NOT NULL,
+    "Estado" VARCHAR(20) NOT NULL,
+    "Username" VARCHAR(30) NOT NULL,
+    "Contraseña" VARCHAR(1000) NOT NULL,
+    "Sexo" VARCHAR(20) NOT NULL,
+    "Foto" TEXT DEFAULT NULL,
+    "Creado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
+    "Actualizado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
+    "Creado_En" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "Actualizado_En" TIMESTAMPTZ DEFAULT NULL,
+    CONSTRAINT "PK_Usuarios" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."RolPermiso"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Id_Rol" INTEGER REFERENCES public."Roles"("Id") MATCH SIMPLE NOT NULL,
+    "Id_Permiso" INTEGER REFERENCES public."Permisos"("Id") MATCH SIMPLE NOT NULL,
+    "Estado" VARCHAR(20) NOT NULL,
+    "Creado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
+    "Actualizado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
+    "Creado_En" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "Actualizado_En" TIMESTAMPTZ DEFAULT NULL,
+    CONSTRAINT "PK_RolPermiso" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."UsuarioPermiso"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Id_Usuario" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
+    "Id_Permiso" INTEGER REFERENCES public."Permisos"("Id") MATCH SIMPLE NOT NULL,
+    "Estado" VARCHAR(20) NOT NULL,
+    "Creado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
+    "Actualizado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
+    "Creado_En" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "Actualizado_En" TIMESTAMPTZ DEFAULT NULL,
+    CONSTRAINT "PK_UsuarioPermiso" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."Especialidades"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Nombre" VARCHAR(255) NOT NULL,
+    "Descripcion" VARCHAR(1000) DEFAULT NULL,
+    "Estado" VARCHAR(20) NOT NULL,
+    CONSTRAINT "PK_Especialidades" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."Consultorios"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Nombre" VARCHAR(255) NOT NULL,
+    "Ubicacion" VARCHAR(200) DEFAULT NULL,
+    "Estado" VARCHAR(20) NOT NULL,
+    CONSTRAINT "PK_Consultorios" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."Pacientes"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Id_Usuario" INTEGER UNIQUE REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
+    "Aseguradora" VARCHAR(200) DEFAULT NULL,
+    "Codigo_Seguro" VARCHAR(50) DEFAULT NULL,
+    "Contacto_Emergencia" VARCHAR (300) DEFAULT NULL,
+    "Numero_Emergencia_1" VARCHAR(50) DEFAULT NULL,
+    "Numero_Emergencia_2" VARCHAR(50) DEFAULT NULL,
+    "Numero_Emergencia_3" VARCHAR(50) DEFAULT NULL,
+    "Alergias" VARCHAR(100) DEFAULT NULL,
+    "Tipo_Sangre" VARCHAR(10) DEFAULT NULL,
+    "Factor_Sangre" VARCHAR(2) DEFAULT NULL,
+    "Donacion_Organos" VARCHAR(5) DEFAULT NULL,
+    "Creado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
+    "Actualizado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
+    "Creado_En" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "Actualizado_En" TIMESTAMPTZ DEFAULT NULL,
+    CONSTRAINT "PK_Pacientes" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."Medicos"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Id_Usuario" INTEGER UNIQUE REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
+    "Codigo" VARCHAR(30) NOT NULL,
+    "Id_Especialidad" INTEGER REFERENCES public."Especialidades"("Id") MATCH SIMPLE NOT NULL,
+    "Grado_Instruccion" VARCHAR(100) DEFAULT NULL,
+    "Creado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
+    "Actualizado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
+    "Creado_En" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "Actualizado_En" TIMESTAMPTZ DEFAULT NULL,
+    CONSTRAINT "PK_Medicos" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."Horarios"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Id_Medico" INTEGER REFERENCES public."Medicos"("Id") MATCH SIMPLE NOT NULL,
+    "Hora_Inicio" VARCHAR(50) NOT NULL,
+    "Hora_Fin" VARCHAR(50) NOT NULL,
+    "Dia_Nombre" VARCHAR(10) NOT NULL,
+    "Numero_Semana" VARCHAR(2) NOT NULL,
+    "Dia_Numero" VARCHAR(3) DEFAULT NULL,
+    "Mes" VARCHAR(20) DEFAULT NULL,
+    "Anio" VARCHAR(4) DEFAULT NULL,
+    "Codigo" VARCHAR(200) DEFAULT NULL,
+    "Estado" VARCHAR(20) NOT NULL,
+    CONSTRAINT "PK_Horarios" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."AgendaCalendario"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Id_Consultorio" INTEGER REFERENCES public."Consultorios"("Id") MATCH SIMPLE NOT NULL,
+    "Id_Especialidad" INTEGER REFERENCES public."Especialidades"("Id") MATCH SIMPLE NOT NULL,
+    "Id_Medico" INTEGER REFERENCES public."Medicos"("Id") MATCH SIMPLE NOT NULL,
+    "Hora_Inicio" VARCHAR(50) NOT NULL,
+    "Hora_Fin" VARCHAR(50) NOT NULL,
+    "Turno" VARCHAR(20) NOT NULL,
+    "Fecha" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "Estado" VARCHAR(20) NOT NULL,
+    CONSTRAINT "PK_AgendaCalendario" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."Citas"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Id_AgendaCalendario" INTEGER REFERENCES public."AgendaCalendario"("Id") MATCH SIMPLE NOT NULL,
+    "Id_Pago" INTEGER REFERENCES public."AgendaCalendario"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
+    "Id_Paciente" INTEGER REFERENCES public."Pacientes"("Id") MATCH SIMPLE NOT NULL,
+    "Creado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
+    "Actualizado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
+    "Creado_En" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "Actualizado_En" TIMESTAMPTZ DEFAULT NULL,
+    "Estado" VARCHAR(20) NOT NULL,
+    CONSTRAINT "PK_Citas" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."Pagos"
+(
+    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
+    "Id_Cita" INTEGER REFERENCES public."Citas"("Id") MATCH SIMPLE NOT NULL,
+    "Codigo" VARCHAR(50) NOT NULL,
+    "Monto" NUMERIC NOT NULL DEFAULT 0,
+    "Creado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
+    "Actualizado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
+    "Creado_En" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "Actualizado_En" TIMESTAMPTZ DEFAULT NULL,
+    CONSTRAINT "PK_Pagos" PRIMARY KEY ("Id")
+);
+
+END;
