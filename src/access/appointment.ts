@@ -11,7 +11,7 @@ import { prisma } from '../core/database'
                 Id: true,
                 Id_AgendaCalendario: true,
                 Id_Paciente: true,
-                AgendaCalendario_Citas_Id_AgendaCalendarioToAgendaCalendario: {
+                AgendaCalendario: {
                     select:{
                         Consultorios: {
                             select: {
@@ -57,6 +57,8 @@ import { prisma } from '../core/database'
                         }
                     }
                 },
+                Boucher: true,
+                Monto: true,
                 Estado: true
             }
         });
@@ -100,7 +102,7 @@ import { prisma } from '../core/database'
                 Id: true,
                 Id_AgendaCalendario: true,
                 Id_Paciente: true,
-                AgendaCalendario_Citas_Id_AgendaCalendarioToAgendaCalendario: {
+                AgendaCalendario: {
                     select:{
                         Consultorios: {
                             select: {
@@ -146,6 +148,8 @@ import { prisma } from '../core/database'
                         }
                     }
                 },
+                Boucher: true,
+                Monto: true,
                 Estado: true
             }
         });
@@ -162,7 +166,7 @@ import { prisma } from '../core/database'
                     Id_AgendaCalendario: parseInt(item.Id_AgendaCalendario),
                     Id_Paciente: parseInt(item.Id_Paciente),
                     Creado_Por: (item.Creado_Por),
-                    Estado: 'ACTIVO'
+                    Estado: 'PENDIENTE'
                 }
             });
         }
@@ -180,6 +184,8 @@ import { prisma } from '../core/database'
                 data: {
                     Id_AgendaCalendario: parseInt(item.Id_AgendaCalendario),
                     Id_Paciente: parseInt(item.Id_Paciente),
+                    Boucher: (item.Boucher),
+                    Monto: parseInt(item.Monto),
                     Actualizado_Por: (item.Creado_Por),
                     Actualizado_En: new Date().toISOString(),
                     Estado: (item.Estado)

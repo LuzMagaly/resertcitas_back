@@ -3,8 +3,7 @@ import { ValidateUser, VerifyEmail } from '../business/auth'
 
 export const Auth = (app: Express) => {
     app.post('/auth/login', async (req: Request, res: Response) => {
-        console.log(req)
-        const response = await ValidateUser(req.body.Credentials)
+        const response = await ValidateUser(req.body.Credentials, req.body.KeepSessionOpen) //receive neverCloseSession
         res.send(response)
     })
 

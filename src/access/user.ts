@@ -132,7 +132,6 @@ import { prisma } from '../core/database'
                 Telefono: true,
                 Correo: true,
                 Estado: true,
-                Contrasenia: true,
                 Sexo: true,
                 Foto: true,
                 Creado_Por: true,
@@ -145,7 +144,7 @@ import { prisma } from '../core/database'
                         Nivel: true
                     }
                 },
-                RolPermiso_RolPermiso_Creado_PorToUsuarios: {
+                RolPermiso: {
                     select: {
                         Permisos: {
                             select: {
@@ -175,6 +174,7 @@ import { prisma } from '../core/database'
                 },
                 Sesiones: {
                     select: {
+                        Id: true,
                         Token: true,
                         Duracion: true,
                         Creado_En: true,

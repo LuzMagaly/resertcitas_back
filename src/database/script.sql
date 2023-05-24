@@ -123,13 +123,9 @@ CREATE TABLE IF NOT EXISTS public."Horarios"
 (
     "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
     "Id_Medico" INTEGER REFERENCES public."Medicos"("Id") MATCH SIMPLE NOT NULL,
-    "Hora_Inicio" VARCHAR(50) NOT NULL,
-    "Hora_Fin" VARCHAR(50) NOT NULL,
+    "Hora_Inicio" TIMESTAMPTZ NOT NULL,
+    "Hora_Fin" TIMESTAMPTZ NOT NULL,
     "Dia_Nombre" VARCHAR(10) NOT NULL,
-    "Numero_Semana" VARCHAR(2) NOT NULL,
-    "Dia_Numero" VARCHAR(3) DEFAULT NULL,
-    "Mes" VARCHAR(20) DEFAULT NULL,
-    "Anio" VARCHAR(4) DEFAULT NULL,
     "Estado" VARCHAR(20) NOT NULL,
     CONSTRAINT "PK_Horarios" PRIMARY KEY ("Id")
 );
@@ -152,23 +148,14 @@ CREATE TABLE IF NOT EXISTS public."Citas"
     "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
     "Id_AgendaCalendario" INTEGER REFERENCES public."AgendaCalendario"("Id") MATCH SIMPLE NOT NULL,
     "Id_Paciente" INTEGER REFERENCES public."Pacientes"("Id") MATCH SIMPLE NOT NULL,
+    "Boucher" VARCHAR(50) DEFAULT NULL,
+    "Monto" NUMERIC DEFAULT NULL,
+    "Estado" VARCHAR(20) NOT NULL,
     "Creado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
     "Actualizado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE ON DELETE SET NULL DEFAULT NULL,
     "Creado_En" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "Actualizado_En" TIMESTAMPTZ DEFAULT NULL,
-    "Estado" VARCHAR(20) NOT NULL,
     CONSTRAINT "PK_Citas" PRIMARY KEY ("Id")
-);
-
-CREATE TABLE IF NOT EXISTS public."Pagos"
-(
-    "Id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY,
-    "Id_Cita" INTEGER UNIQUE REFERENCES public."Citas"("Id") MATCH SIMPLE NOT NULL,
-    "Codigo" VARCHAR(50) NOT NULL,
-    "Monto" NUMERIC NOT NULL DEFAULT 0,
-    "Creado_Por" INTEGER REFERENCES public."Usuarios"("Id") MATCH SIMPLE NOT NULL,
-    "Creado_En" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    CONSTRAINT "PK_Pagos" PRIMARY KEY ("Id")
 );
 
 CREATE TABLE IF NOT EXISTS public."Sesiones"
@@ -194,7 +181,7 @@ INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Es
 INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Pagos', 'Acceso a la sección de pacientes', '3', 'payments', 'Activo');
 
 INSERT INTO public."Usuarios" ("Id_Rol", "DNI", "Nombres", "Apellido_Paterno", "Apellido_Materno", "Fecha_Nacimiento", "Direccion", "Telefono", "Correo", "Estado", "Contrasenia", "Sexo", "Foto", "Creado_Por", "Actualizado_Por", "Creado_En", "Actualizado_En")
-VALUES (3, '12345678', 'Joaquin', 'Medina', 'Salas', '2002-08-19', 'Calle Los Álamos 203', '987654321', 'joaquinmedina@gmail.com', 'Activo', '1234', 'Masculino', NULL, 1, NULL, '2022-11-15 23:50', NULL);
+VALUES (3, '12345678', 'Joaquin', 'Medina', 'Salas', '2002-08-19', 'Calle Los Álamos 203', '987654321', 'joaquinmedina@gmail.com', 'Activo', '1234', 'M', NULL, 1, NULL, '2022-11-15 23:50', NULL);
 
 INSERT INTO public."RolPermiso" ("Id_Rol", "Id_Permiso", "Creado_Por", "Creado_En") VALUES (2, 1, 1, '2022-11-15 23:50');
 INSERT INTO public."RolPermiso" ("Id_Rol", "Id_Permiso", "Creado_Por", "Creado_En") VALUES (2, 3, 1, '2022-11-15 23:50');

@@ -1,11 +1,19 @@
-export const EncryptRSA = (text: string): string => {
-    //Encript Text using RSA (public key)
-    return text;
-}
+import crypto from 'crypto'
+import { privateKey } from "./keys"
 
 export const DecryptRSA = (value: string): string => {
-    //Descrypt Value using RSA (private key)
-    return value;
+    const rsaPrivateKey = {
+        key: privateKey,
+        passphrase: '',
+        padding: crypto.constants.RSA_PKCS1_PADDING,
+      };
+
+      const decryptedMessage = crypto.privateDecrypt(
+        rsaPrivateKey,
+        Buffer.from(value, 'base64'),
+      );
+
+      return decryptedMessage.toString('utf8');
 }
 
 export const GenerateHash = (value: string): string => {

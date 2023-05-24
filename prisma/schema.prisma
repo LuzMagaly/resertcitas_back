@@ -8,33 +8,34 @@ datasource db {
 }
 
 model AgendaCalendario {
-  Id                                                Int          @id(map: "PK_AgendaCalendario") @default(autoincrement())
-  Id_Consultorio                                    Int
-  Id_Medico                                         Int
-  Hora_Inicio                                       String       @db.VarChar(50)
-  Hora_Fin                                          String       @db.VarChar(50)
-  Turno                                             String       @db.VarChar(20)
-  Fecha                                             DateTime     @default(now()) @db.Timestamptz(6)
-  Estado                                            String       @db.VarChar(20)
-  Consultorios                                      Consultorios @relation(fields: [Id_Consultorio], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Medicos                                           Medicos      @relation(fields: [Id_Medico], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Citas_Citas_Id_AgendaCalendarioToAgendaCalendario Citas[]      @relation("Citas_Id_AgendaCalendarioToAgendaCalendario")
+  Id             Int          @id(map: "PK_AgendaCalendario") @default(autoincrement())
+  Id_Consultorio Int
+  Id_Medico      Int
+  Hora_Inicio    String       @db.VarChar(50)
+  Hora_Fin       String       @db.VarChar(50)
+  Turno          String       @db.VarChar(20)
+  Fecha          DateTime     @default(now()) @db.Timestamptz(6)
+  Estado         String       @db.VarChar(20)
+  Consultorios   Consultorios @relation(fields: [Id_Consultorio], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+  Medicos        Medicos      @relation(fields: [Id_Medico], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+  Citas          Citas[]
 }
 
 model Citas {
-  Id                                                           Int              @id(map: "PK_Citas") @default(autoincrement())
-  Id_AgendaCalendario                                          Int
-  Id_Paciente                                                  Int
-  Creado_Por                                                   Int
-  Actualizado_Por                                              Int?
-  Creado_En                                                    DateTime         @default(now()) @db.Timestamptz(6)
-  Actualizado_En                                               DateTime?        @db.Timestamptz(6)
-  Estado                                                       String           @db.VarChar(20)
-  Usuarios_Citas_Actualizado_PorToUsuarios                     Usuarios?        @relation("Citas_Actualizado_PorToUsuarios", fields: [Actualizado_Por], references: [Id], onUpdate: NoAction)
-  Usuarios_Citas_Creado_PorToUsuarios                          Usuarios         @relation("Citas_Creado_PorToUsuarios", fields: [Creado_Por], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  AgendaCalendario_Citas_Id_AgendaCalendarioToAgendaCalendario AgendaCalendario @relation("Citas_Id_AgendaCalendarioToAgendaCalendario", fields: [Id_AgendaCalendario], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Pacientes                                                    Pacientes        @relation(fields: [Id_Paciente], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Pagos                                                        Pagos?
+  Id                                       Int              @id(map: "PK_Citas") @default(autoincrement())
+  Id_AgendaCalendario                      Int
+  Id_Paciente                              Int
+  Boucher                                  String?          @db.VarChar(50)
+  Monto                                    Decimal?         @db.Decimal
+  Estado                                   String           @db.VarChar(20)
+  Creado_Por                               Int
+  Actualizado_Por                          Int?
+  Creado_En                                DateTime         @default(now()) @db.Timestamptz(6)
+  Actualizado_En                           DateTime?        @db.Timestamptz(6)
+  Usuarios_Citas_Actualizado_PorToUsuarios Usuarios?        @relation("Citas_Actualizado_PorToUsuarios", fields: [Actualizado_Por], references: [Id], onUpdate: NoAction)
+  Usuarios_Citas_Creado_PorToUsuarios      Usuarios         @relation("Citas_Creado_PorToUsuarios", fields: [Creado_Por], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+  AgendaCalendario                         AgendaCalendario @relation(fields: [Id_AgendaCalendario], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+  Pacientes                                Pacientes        @relation(fields: [Id_Paciente], references: [Id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Consultorios {
@@ -54,17 +55,13 @@ model Especialidades {
 }
 
 model Horarios {
-  Id            Int     @id(map: "PK_Horarios") @default(autoincrement())
-  Id_Medico     Int
-  Hora_Inicio   String  @db.VarChar(50)
-  Hora_Fin      String  @db.VarChar(50)
-  Dia_Nombre    String  @db.VarChar(10)
-  Numero_Semana String  @db.VarChar(2)
-  Dia_Numero    String? @db.VarChar(3)
-  Mes           String? @db.VarChar(20)
-  Anio          String? @db.VarChar(4)
-  Estado        String  @db.VarChar(20)
-  Medicos       Medicos @relation(fields: [Id_Medico], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+  Id          Int      @id(map: "PK_Horarios") @default(autoincrement())
+  Id_Medico   Int
+  Hora_Inicio DateTime @db.Timestamptz(6)
+  Hora_Fin    DateTime @db.Timestamptz(6)
+  Dia_Nombre  String   @db.VarChar(10)
+  Estado      String   @db.VarChar(20)
+  Medicos     Medicos  @relation(fields: [Id_Medico], references: [Id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Medicos {
@@ -106,17 +103,6 @@ model Pacientes {
   Usuarios_Pacientes_Id_UsuarioToUsuarios      Usuarios  @relation("Pacientes_Id_UsuarioToUsuarios", fields: [Id_Usuario], references: [Id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model Pagos {
-  Id                                  Int      @id(map: "PK_Pagos") @default(autoincrement())
-  Id_Cita                             Int      @unique
-  Codigo                              String   @db.VarChar(50)
-  Monto                               Decimal  @default(0) @db.Decimal
-  Creado_Por                          Int
-  Creado_En                           DateTime @default(now()) @db.Timestamptz(6)
-  Usuarios_Pagos_Creado_PorToUsuarios Usuarios @relation("Pagos_Creado_PorToUsuarios", fields: [Creado_Por], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Citas                               Citas    @relation(fields: [Id_Cita], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-}
-
 model Permisos {
   Id             Int              @id(map: "PK_Permisos") @default(autoincrement())
   Nombre         String           @db.VarChar(255)
@@ -129,14 +115,14 @@ model Permisos {
 }
 
 model RolPermiso {
-  Id                                       Int      @id(map: "PK_RolPermiso") @default(autoincrement())
-  Id_Rol                                   Int
-  Id_Permiso                               Int
-  Creado_Por                               Int
-  Creado_En                                DateTime @default(now()) @db.Timestamptz(6)
-  Usuarios_RolPermiso_Creado_PorToUsuarios Usuarios @relation("RolPermiso_Creado_PorToUsuarios", fields: [Creado_Por], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Permisos                                 Permisos @relation(fields: [Id_Permiso], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Roles                                    Roles    @relation(fields: [Id_Rol], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+  Id         Int      @id(map: "PK_RolPermiso") @default(autoincrement())
+  Id_Rol     Int
+  Id_Permiso Int
+  Creado_Por Int
+  Creado_En  DateTime @default(now()) @db.Timestamptz(6)
+  Usuarios   Usuarios @relation(fields: [Creado_Por], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+  Permisos   Permisos @relation(fields: [Id_Permiso], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+  Roles      Roles    @relation(fields: [Id_Rol], references: [Id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Roles {
@@ -145,6 +131,16 @@ model Roles {
   Nivel      Int?         @default(0)
   RolPermiso RolPermiso[]
   Usuarios   Usuarios[]
+}
+
+model Sesiones {
+  Id             Int       @id(map: "PK_Sesiones") @default(autoincrement())
+  Id_Usuario     Int
+  Token          String    @db.VarChar(1000)
+  Duracion       Decimal   @default(5) @db.Decimal
+  Creado_En      DateTime  @default(now()) @db.Timestamptz(6)
+  Actualizado_En DateTime? @db.Timestamptz(6)
+  Usuarios       Usuarios  @relation(fields: [Id_Usuario], references: [Id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model UsuarioPermiso {
@@ -189,8 +185,7 @@ model Usuarios {
   Pacientes_Pacientes_Actualizado_PorToUsuarios           Pacientes[]      @relation("Pacientes_Actualizado_PorToUsuarios")
   Pacientes_Pacientes_Creado_PorToUsuarios                Pacientes[]      @relation("Pacientes_Creado_PorToUsuarios")
   Pacientes_Pacientes_Id_UsuarioToUsuarios                Pacientes?       @relation("Pacientes_Id_UsuarioToUsuarios")
-  Pagos_Pagos_Creado_PorToUsuarios                        Pagos[]          @relation("Pagos_Creado_PorToUsuarios")
-  RolPermiso_RolPermiso_Creado_PorToUsuarios              RolPermiso[]     @relation("RolPermiso_Creado_PorToUsuarios")
+  RolPermiso                                              RolPermiso[]
   Sesiones                                                Sesiones[]
   UsuarioPermiso_UsuarioPermiso_Actualizado_PorToUsuarios UsuarioPermiso[] @relation("UsuarioPermiso_Actualizado_PorToUsuarios")
   UsuarioPermiso_UsuarioPermiso_Creado_PorToUsuarios      UsuarioPermiso[] @relation("UsuarioPermiso_Creado_PorToUsuarios")
@@ -200,14 +195,4 @@ model Usuarios {
   Usuarios_Usuarios_Creado_PorToUsuarios                  Usuarios?        @relation("Usuarios_Creado_PorToUsuarios", fields: [Creado_Por], references: [Id], onUpdate: NoAction)
   other_Usuarios_Usuarios_Creado_PorToUsuarios            Usuarios[]       @relation("Usuarios_Creado_PorToUsuarios")
   Roles                                                   Roles            @relation(fields: [Id_Rol], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model Sesiones {
-  Id             Int       @id(map: "PK_Sesiones") @default(autoincrement())
-  Id_Usuario     Int
-  Token          String    @db.VarChar(1000)
-  Duracion       Decimal   @default(5) @db.Decimal
-  Creado_En      DateTime  @default(now()) @db.Timestamptz(6)
-  Actualizado_En DateTime? @db.Timestamptz(6)
-  Usuarios       Usuarios  @relation(fields: [Id_Usuario], references: [Id], onDelete: NoAction, onUpdate: NoAction)
 }

@@ -27,7 +27,7 @@ INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Es
 INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Pagos', 'Acceso a la sección de pacientes', '3', 'payments', 'Activo');
 
 INSERT INTO public."Usuarios" ("Id_Rol", "DNI", "Nombres", "Apellido_Paterno", "Apellido_Materno", "Fecha_Nacimiento", "Direccion", "Telefono", "Correo", "Estado", "Contrasenia", "Sexo", "Foto", "Creado_Por", "Actualizado_Por", "Creado_En", "Actualizado_En")
-VALUES (3, '12345678', 'Joaquin', 'Medina', 'Salas', '2002-08-19', 'Calle Los Álamos 203', '987654321', 'joaquinmedina@gmail.com', 'Activo', '1234', 'Masculino', NULL, 1, NULL, '2022-11-15 23:50', NULL);
+VALUES (3, '12345678', 'Joaquin', 'Medina', 'Salas', '2002-08-19', 'Calle Los Álamos 203', '987654321', 'joaquinmedina@gmail.com', 'Activo', '1234', 'M', NULL, 1, NULL, '2022-11-15 23:50', NULL);
 
 INSERT INTO public."RolPermiso" ("Id_Rol", "Id_Permiso", "Creado_Por", "Creado_En") VALUES (2, 1, 1, '2022-11-15 23:50');
 INSERT INTO public."RolPermiso" ("Id_Rol", "Id_Permiso", "Creado_Por", "Creado_En") VALUES (2, 3, 1, '2022-11-15 23:50');

@@ -14,7 +14,7 @@ import { prisma } from '../core/database'
     }
 
     export const selectById = async (Id: number) => {
-        return await prisma.especialidades.findMany({
+        return await prisma.especialidades.findFirst({
             where: {
                 Id: (Id)
             },

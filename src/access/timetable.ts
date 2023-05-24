@@ -13,10 +13,6 @@ import { prisma } from '../core/database'
                 Hora_Inicio: true,
                 Hora_Fin: true,
                 Dia_Nombre: true,
-                Numero_Semana: true,
-                Dia_Numero: true,
-                Mes: true,
-                Anio: true,
                 Estado: true
             }
         });
@@ -33,10 +29,6 @@ import { prisma } from '../core/database'
                 Hora_Inicio: true,
                 Hora_Fin: true,
                 Dia_Nombre: true,
-                Numero_Semana: true,
-                Dia_Numero: true,
-                Mes: true,
-                Anio: true,
                 Estado: true
             }
         });
@@ -55,10 +47,6 @@ import { prisma } from '../core/database'
                 Hora_Inicio: true,
                 Hora_Fin: true,
                 Dia_Nombre: true,
-                Numero_Semana: true,
-                Dia_Numero: true,
-                Mes: true,
-                Anio: true,
                 Estado: true
             }
         });
@@ -76,10 +64,6 @@ import { prisma } from '../core/database'
                     Hora_Inicio: (item.Hora_Inicio),
                     Hora_Fin: (item.Hora_Fin),
                     Dia_Nombre: (item.Dia_Nombre),
-                    Numero_Semana: (item.Numero_Semana),
-                    Dia_Numero: (item.Dia_Numero),
-                    Mes: (item.Mes),
-                    Anio: (item.Anio),
                     Estado: (item.Estado)
                 }
             });
@@ -100,10 +84,6 @@ import { prisma } from '../core/database'
                     Hora_Inicio: (item.Hora_Inicio),
                     Hora_Fin: (item.Hora_Fin),
                     Dia_Nombre: (item.Dia_Nombre),
-                    Numero_Semana: (item.Numero_Semana),
-                    Dia_Numero: (item.Dia_Numero),
-                    Mes: (item.Mes),
-                    Anio: (item.Anio),
                     Estado: (item.Estado)
                 }
             });
