@@ -196,3 +196,4 @@ model Usuarios {
   other_Usuarios_Usuarios_Creado_PorToUsuarios            Usuarios[]       @relation("Usuarios_Creado_PorToUsuarios")
   Roles                                                   Roles            @relation(fields: [Id_Rol], references: [Id], onDelete: NoAction, onUpdate: NoAction)
 }
+
