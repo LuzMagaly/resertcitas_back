@@ -1,5 +1,5 @@
 import { Express, Request, Response } from 'express'
-import { GetAll, GetOne, FindUser, Insert, Update } from '../business/user'
+import { GetAll, GetOne, FindUser, Insert, Update, UpdatePassword } from '../business/user'
 
 export const User = (app: Express) => {
     app.post('/user/getAll/', async (req: Request, res: Response) => {
@@ -29,6 +29,12 @@ export const User = (app: Express) => {
     app.post('/user/update/', async (req: Request, res: Response) => {
         //Validate permisions!!!
         const response = await Update(req.body.Item)
+        res.send(response)
+    })
+
+    app.post('/user/changePass/', async (req: Request, res: Response) => {
+        //Validate permisions!!!
+        const response = await UpdatePassword(req.body.Item)
         res.send(response)
     })
 }

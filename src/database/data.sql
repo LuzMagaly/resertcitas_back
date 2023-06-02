@@ -47,7 +47,6 @@ INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES (
 INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES ('Ginecología y obstetricia', 'Cuidado de la salud reproductora', 'Activo');
 INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES ('Oftalmología', 'Cuidado de la vista', 'Activo');
 INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES ('Otorrinolaringología', 'Salud auditiva', 'Activo');
-INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES ('Cardiología', 'Diagnóstico de problemas del corazón', 'Activo');
 INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES ('Oncología', 'Detección de cáncer', 'Activo');
 INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES ('Rehabilitación', 'Terapias de recuperación', 'Activo');
 INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES ('Laboratorios clínicos', 'Análisis y diagnóstico', 'Activo');

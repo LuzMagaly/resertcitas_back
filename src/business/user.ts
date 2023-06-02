@@ -19,3 +19,7 @@ export const Insert = async (Item: any) => {
 export const Update = async (Item: any) => {
     return await updateRow(Item)
 }
+
+export const UpdatePassword = async (Item: any) => {
+    return await updateRow(Item)
+}
