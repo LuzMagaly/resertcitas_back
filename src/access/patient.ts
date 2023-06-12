@@ -133,8 +133,8 @@ import { prisma } from '../core/database'
                     Alergias: (item.Alergias),
                     Tipo_Sangre: (item.Tipo_Sangre),
                     Factor_Sangre: (item.Factor_Sangre),
-                    Donacion_Organos: (item.Donacion_Organos),
-                    Creado_Por: (item.Creado_Por)
+                    Donacion_Organos: parseInt(item.Donacion_Organos),
+                    Creado_Por: parseInt(item.Creado_Por)
                 }
             });
         }

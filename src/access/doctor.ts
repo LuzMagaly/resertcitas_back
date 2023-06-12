@@ -17,7 +17,8 @@ import { prisma } from '../core/database'
                 Especialidades: {
                     select: {
                         Nombre: true,
-                        Descripcion: true
+                        Descripcion: true,
+                        Id: true
                     }
                 },
                 Codigo: true,
@@ -44,7 +45,8 @@ import { prisma } from '../core/database'
                 Especialidades: {
                     select: {
                         Nombre: true,
-                        Descripcion: true
+                        Descripcion: true,
+                        Id: true
                     }
                 },
                 Codigo: true,
@@ -92,7 +94,8 @@ import { prisma } from '../core/database'
                 Especialidades: {
                     select: {
                         Nombre: true,
-                        Descripcion: true
+                        Descripcion: true,
+                        Id: true
                     }
                 },
                 Codigo: true,
@@ -119,7 +122,8 @@ import { prisma } from '../core/database'
                 Especialidades: {
                     select: {
                         Nombre: true,
-                        Descripcion: true
+                        Descripcion: true,
+                        Id: true
                     }
                 },
                 Codigo: true,
@@ -138,7 +142,7 @@ import { prisma } from '../core/database'
                 data: {
                     Id_Usuario: parseInt(item.Id_Usuario),
                     Codigo: (item.Codigo),
-                    Id_Especialidad: (item.Id_Especialidad),
+                    Id_Especialidad: parseInt(item.Id_Especialidad),
                     Grado_Instruccion: (item.Grado_Instruccion),
                     Creado_Por: (item.Creado_Por)
                 }

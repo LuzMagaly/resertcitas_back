@@ -16,7 +16,7 @@ export const Patient = (app: Express) => {
 
     app.post('/patient/getByUser/', async (req: Request, res: Response) => {
         //Validate permisions!!!
-        const response = await GetByUser(req.body.Id)
+        const response = await GetByUser(req.body.Options)
         res.send(response)
     })
 

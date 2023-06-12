@@ -16,7 +16,6 @@ export const ValidateUser = async (Credentials: string, keepSessionOpen: boolean
 
     let userResponse = null
     const userGetted = await selectByCredentials(username, password)
-    console.log(userGetted)
     if(userGetted && userGetted.Sesiones){
         let sessiones: any = []
         if(userGetted.Sesiones.length > 0 && userGetted.Sesiones[0].Token){
