@@ -1,4 +1,5 @@
 import { prisma } from '../core/database'
+import Doctor from '../services/doctor';
 
 //#region [ SELECT ]
 
@@ -138,7 +139,7 @@ import { prisma } from '../core/database'
 
     export const insertRow = async (item: any) => {
         try {
-            return await prisma.medicos.create({
+            return prisma.medicos.create({
                 data: {
                     Id_Usuario: parseInt(item.Id_Usuario),
                     Codigo: (item.Codigo),

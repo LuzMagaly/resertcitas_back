@@ -16,6 +16,7 @@ export const Appointment = (app: Express) => {
 
     app.post('/appointment/save/', async (req: Request, res: Response) => {
         //Validate permisions!!!
+        //Use transactions to massive inserts :)
         const response = await Insert(req.body.Item)
         res.send(response)
     })
