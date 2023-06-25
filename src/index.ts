@@ -10,7 +10,7 @@ const app = express()
 app.set('PORT', process.env.PORT || 4500)
 app.use(express.json())
 app.use(cors({ origin: 'http://localhost:3000' }));
-app.use(morgan('dev'))
+//app.use(morgan('dev'))
 
 app.get("/", (req: Request, res: Response) => {
   res.send({ uptime: process.uptime() })
