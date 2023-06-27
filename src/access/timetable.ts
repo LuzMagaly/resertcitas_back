@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from '../core/database'
 
 //#region [ SELECT ]
@@ -56,17 +57,36 @@ import { prisma } from '../core/database'
 
 //#region [ SAVE ]
 
-    export const insertRow = async (item: any) => {
+    export const insertRow = async (Items: any) => {
         try {
-            return await prisma.horarios.create({
-                data: {
-                    Id_Medico: (item.Id_Medico),
-                    Hora_Inicio: (item.Hora_Inicio),
-                    Hora_Fin: (item.Hora_Fin),
-                    Dia_Nombre: (item.Dia_Nombre),
-                    Estado: (item.Estado)
+            //USANDO TRANSACCIONES: ELIMINAR HORARIO EXISTENTE Y CREAR UNO NUEVO, TODO EN UNA SOLA TRANSACCION
+            return await prisma.$transaction(
+                async () => {
+                    //ELIMINACION DEL HORARIO EXISTENTE
+                    await prisma.horarios.deleteMany({
+                        where: {
+                            Id_Medico: Items[0].Id_Medico
+                        }
+                    })
+                    //CREACON DEL HORARIO EXISTENTE
+                    return await Items.map(async (item: any) =>
+                        await prisma.horarios.create({
+                            data: {
+                                Id_Medico: (item.Id_Medico),
+                                Hora_Inicio: (item.Hora_Inicio),
+                                Hora_Fin: (item.Hora_Fin),
+                                Dia_Nombre: (item.Dia_Nombre),
+                                Estado: (item.Estado)
+                            }
+                        })
+                    )
+                },
+                {
+                    maxWait: 5000,
+                    timeout: 10000,
+                    isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
                 }
-            });
+            )
         }
         catch (err: any) {
             return err.message;

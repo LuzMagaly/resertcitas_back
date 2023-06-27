@@ -22,8 +22,7 @@ export const Timetable = (app: Express) => {
 
     app.post('/timetable/save/', async (req: Request, res: Response) => {
         //Validate permisions!!!
-        //Use transactions to massive inserts :)
-        const response = await Insert(req.body.Item)
+        const response = await Insert(req.body.Items)
         res.send(response)
     })
 
