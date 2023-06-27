@@ -23,6 +23,7 @@ export const Patient = (app: Express) => {
     app.post('/patient/save/', async (req: Request, res: Response) => {
         //Validate permisions!!!
         const response = await Insert(req.body.Item)
+        console.log(response)
         res.send(response)
     })
 

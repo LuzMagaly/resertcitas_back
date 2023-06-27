@@ -105,6 +105,8 @@ import { prisma } from '../core/database'
                 AgendaCalendario: {
                     select:{
                         Consultorios: {
+
+
                             select: {
                                 Nombre: true,
                                 Ubicacion: true
