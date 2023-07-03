@@ -17,13 +17,13 @@ export const Schedule = (app: Express) => {
 
     app.post('/schedule/getBySpecialty/', async (req: Request, res: Response) => {
         //Validate permisions!!!
-        const response = await GetBySpecialty(req.body.Id)
+        const response = await GetBySpecialty(req.body.Id, req.body.Fecha)
         res.send(response)
     })
 
     app.post('/schedule/save/', async (req: Request, res: Response) => {
         //Validate permisions!!!
-        const response = await Insert(req.body.Item)
+        const response = await Insert(req.body.Items)
         res.send(response)
     })
 

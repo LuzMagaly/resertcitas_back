@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from '../core/database'
 
 //#region [ SELECT ]
@@ -49,11 +50,16 @@ import { prisma } from '../core/database'
         });
     }
 
-    export const selectBySpecialty = async (Id_Especialidad: number) => {
-        return await prisma.agendaCalendario.findFirst({
+    export const selectBySpecialty = async (Id_Especialidad: number[], Fecha: Date) => {
+        return await prisma.agendaCalendario.findMany({
             where: {
-                Medicos: {
-                    Id_Especialidad: Id_Especialidad
+                AND: {
+                    Medicos: {
+                        Id_Especialidad: {
+                            in: Id_Especialidad
+                        }
+                    },
+                    Fecha: new Date(Fecha).toISOString()
                 }
             },
             select: {
@@ -172,19 +178,29 @@ import { prisma } from '../core/database'
 
 //#region [ SAVE ]
 
-    export const insertRow = async (item: any) => {
+    export const insertRow = async (items: any[]) => {
         try {
-            return await prisma.agendaCalendario.create({
-                data: {
-                    Id_Consultorio: parseInt(item.Id_Consultorio),
-                    Id_Medico: parseInt(item.Id_Medico),
-                    Hora_Inicio: new Date(item.Hora_Inicio).toISOString(),
-                    Hora_Fin: new Date(item.Hora_Fin).toISOString(),
-                    Turno: (item.Turno),
-                    Fecha: (item.Fecha),
-                    Estado: (item.Estado)
+            return await prisma.$transaction(
+                async () => {
+                    return items.map(async (item: any) => await prisma.agendaCalendario.create({
+                        data: {
+                            Id_Consultorio: parseInt(item.Id_Consultorio),
+                            Id_Medico: parseInt(item.Id_Medico),
+                            Hora_Inicio: new Date(item.Hora_Inicio).toISOString(),
+                            Hora_Fin: new Date(item.Hora_Fin).toISOString(),
+                            Turno: (item.Turno),
+                            Fecha: (item.Fecha),
+                            Estado: (item.Estado)
+                        }
+                    })
+                    )
+                },
+                {
+                    maxWait: 5000,
+                    timeout: 10000,
+                    isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
                 }
-            });
+            )
         }
         catch (err: any) {
             return err.message;

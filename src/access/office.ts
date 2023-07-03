@@ -27,4 +27,19 @@ import { prisma } from '../core/database'
         });
     }
 
+    export const selectBySpecialty = async (Id: string) => {
+        return await prisma.consultorios.findMany({
+            where: {
+                Estado: (Id)
+            },
+            select: {
+                Id: true,
+                Nombre: true,
+                Ubicacion: true,
+                Estado: true
+            }
+        });
+    }
+
+
 //#endregion

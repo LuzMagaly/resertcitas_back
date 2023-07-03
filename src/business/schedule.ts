@@ -8,12 +8,12 @@ export const GetByDoctor = async (Id: number) => {
     return await selectByDoctor(Id)
 }
 
-export const GetBySpecialty = async (Id: number) => {
-    return await selectBySpecialty(Id)
+export const GetBySpecialty = async (Id: number[], Fecha: Date) => {
+    return await selectBySpecialty(Id, Fecha)
 }
 
-export const Insert = async (Item: any) => {
-    return await insertRow(Item)
+export const Insert = async (Items: any[]) => {
+    return await insertRow(Items)
 }
 
 export const Update = async (Item: any) => {

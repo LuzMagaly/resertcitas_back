@@ -16,7 +16,7 @@ export const Timetable = (app: Express) => {
 
     app.post('/timetable/getBySpecialty/', async (req: Request, res: Response) => {
         //Validate permisions!!!
-        const response = await GetBySpecialty(req.body.Id)
+        const response = await GetBySpecialty(req.body.Id, req.body.Day)
         res.send(response)
     })
 

@@ -52,21 +52,33 @@ INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES (
 INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES ('Laboratorios clínicos', 'Análisis y diagnóstico', 'Activo');
 INSERT INTO public."Especialidades" ("Nombre", "Descripcion", "Estado") VALUES ('Radiología', 'Rayos X', 'Activo');
 
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('101', 'Piso 1', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('102', 'Piso 1', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('103', 'Piso 1', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('104', 'Piso 1', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('105', 'Piso 1', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('106', 'Piso 1', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('107', 'Piso 1', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('108', 'Piso 1', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('109', 'Piso 1', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('201', 'Piso 2', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('202', 'Piso 2', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('203', 'Piso 2', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('204', 'Piso 2', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('205', 'Piso 2', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('206', 'Piso 2', 'Activo');
-INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('207', 'Piso 2', 'Activo');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Urgencias', 'Piso 1', '1');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Medicina general', 'Piso 1', '2');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Odontología', 'Piso 1', '3');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Psicología', 'Piso 1', '4');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Pediatría', 'Piso 1', '5');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Ginecología y obstetricia', 'Piso 1', '6');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Oftalmología', 'Piso 1', '7');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Otorrinolaringología', 'Piso 1', '8');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Cardiología', 'Piso 1', '9');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Oncología', 'Piso 2', '10');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Rehabilitación', 'Piso 2', '11');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Laboratorios clínicos', 'Piso 2', '12');
+INSERT INTO public."Consultorios" ("Nombre", "Ubicacion", "Estado") VALUES ('Consultorio de Radiología', 'Piso 2', '13');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 COMMIT;

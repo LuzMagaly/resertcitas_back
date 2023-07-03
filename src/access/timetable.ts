@@ -35,11 +35,16 @@ import { prisma } from '../core/database'
         });
     }
 
-    export const selectBySpecialty = async (Id_Especialidad: number) => {
+    export const selectBySpecialty = async (Id_Especialidad: number[], day: string) => {
         return await prisma.horarios.findMany({
             where: {
-                Medicos: {
-                    Id_Especialidad: Id_Especialidad
+                AND: {
+                    Medicos: {
+                        Id_Especialidad: {
+                            in: Id_Especialidad
+                        }
+                    },
+                    Dia_Nombre: day
                 }
             },
             select: {
@@ -68,7 +73,7 @@ import { prisma } from '../core/database'
                             Id_Medico: Items[0].Id_Medico
                         }
                     })
-                    //CREACON DEL HORARIO EXISTENTE
+                    //CREACION DEL HORARIO EXISTENTE
                     return await Items.map(async (item: any) =>
                         await prisma.horarios.create({
                             data: {
