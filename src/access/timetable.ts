@@ -68,14 +68,15 @@ import { prisma } from '../core/database'
             return await prisma.$transaction(
                 async () => {
                     //ELIMINACION DEL HORARIO EXISTENTE
-                    await prisma.horarios.deleteMany({
+                    const result_delete = await prisma.horarios.deleteMany({
                         where: {
                             Id_Medico: Items[0].Id_Medico
                         }
                     })
                     //CREACION DEL HORARIO EXISTENTE
-                    return await Items.map(async (item: any) =>
-                        await prisma.horarios.create({
+                    const result_insert = await Items.map(async (item: any) => {
+                        console.log('inserting')
+                        const result = await prisma.horarios.create({
                             data: {
                                 Id_Medico: (item.Id_Medico),
                                 Hora_Inicio: (item.Hora_Inicio),
@@ -84,10 +85,15 @@ import { prisma } from '../core/database'
                                 Estado: (item.Estado)
                             }
                         })
+                        console.log(result)
+                        return result
+                    }
                     )
+                    console.log(result_insert)
+                    return result_insert
                 },
                 {
-                    maxWait: 5000,
+                    maxWait: 10000,
                     timeout: 10000,
                     isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
                 }

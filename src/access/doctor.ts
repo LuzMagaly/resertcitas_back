@@ -162,7 +162,7 @@ import Doctor from '../services/doctor';
                 },
                 data: {
                     Codigo: (item.Codigo),
-                    Id_Especialidad: parseInt(item.Id_Especialidad),
+                    Id_Especialidad: (item.Id_Especialidad),
                     Grado_Instruccion: (item.Grado_Instruccion),
                     Actualizado_Por: (item.Creado_Por),
                     Actualizado_En: new Date().toISOString()

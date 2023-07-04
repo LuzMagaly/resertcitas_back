@@ -23,6 +23,7 @@ export const Timetable = (app: Express) => {
     app.post('/timetable/save/', async (req: Request, res: Response) => {
         //Validate permisions!!!
         const response = await Insert(req.body.Items)
+        console.log(response)
         res.send(response)
     })
 

@@ -122,8 +122,8 @@ import { prisma } from '../core/database'
             },
             select: {
                 Id: true,
-                Id_Rol: false,
-                DNI: false,
+                Id_Rol: true,
+                DNI: true,
                 Nombres: true,
                 Apellido_Paterno: true,
                 Apellido_Materno: true,
