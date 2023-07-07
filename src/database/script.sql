@@ -172,6 +172,7 @@ CREATE TABLE IF NOT EXISTS public."Sesiones"
 INSERT INTO public."Roles" ("Id", "Nombre", "Nivel") VALUES (1, 'Paciente', '1');
 INSERT INTO public."Roles" ("Id", "Nombre", "Nivel") VALUES (2, 'Medico', '2');
 INSERT INTO public."Roles" ("Id", "Nombre", "Nivel") VALUES (3, 'Administrador', '3');
+INSERT INTO public."Roles" ("Id", "Nombre", "Nivel") VALUES (4, 'Super', '4');
 
 INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Pacientes', 'Administración de todo el módulo de pacientes', '1', 'patient', 'Activo');
 INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Medicos', 'Administración de todo el módulo de médicos', '2', 'doctor', 'Activo');

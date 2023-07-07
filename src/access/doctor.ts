@@ -1,5 +1,4 @@
 import { prisma } from '../core/database'
-import Doctor from '../services/doctor';
 
 //#region [ SELECT ]
 
