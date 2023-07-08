@@ -75,7 +75,6 @@ import { prisma } from '../core/database'
                     })
                     //CREACION DEL HORARIO EXISTENTE
                     const result_insert = await Items.map(async (item: any) => {
-                        console.log('inserting')
                         const result = await prisma.horarios.create({
                             data: {
                                 Id_Medico: (item.Id_Medico),
@@ -85,11 +84,9 @@ import { prisma } from '../core/database'
                                 Estado: (item.Estado)
                             }
                         })
-                        console.log(result)
                         return result
                     }
                     )
-                    console.log(result_insert)
                     return result_insert
                 },
                 {

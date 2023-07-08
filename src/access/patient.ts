@@ -122,7 +122,6 @@ import { prisma } from '../core/database'
 //#region [ SAVE ]
 
     export const insertRow = async (item: any) => {
-        console.log(item)
         try {
             return await prisma.pacientes.create({
                 data: {
