@@ -1,5 +1,4 @@
 import { prisma } from '../core/database'
-import Doctor from '../services/doctor';
 
 //#region [ SELECT ]
 
@@ -9,6 +8,7 @@ import Doctor from '../services/doctor';
                 Id: true,
                 Usuarios_Medicos_Id_UsuarioToUsuarios: {
                     select: {
+                        Id: true,
                         Nombres: true,
                         Apellido_Paterno: true,
                         Apellido_Materno: true,
