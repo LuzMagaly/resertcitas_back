@@ -1,5 +1,5 @@
 import { Express, Request, Response } from 'express'
-import { GetOne, GetByDoctor, GetBySpecialty, Insert, Update } from '../business/timetable'
+import { GetOne, GetByDoctor, GetBySpecialty, Insert, Update, GetBySpecialtyWidthDoctor } from '../business/timetable'
 
 export const Timetable = (app: Express) => {
     app.post('/timetable/getOne/', async (req: Request, res: Response) => {
@@ -17,6 +17,12 @@ export const Timetable = (app: Express) => {
     app.post('/timetable/getBySpecialty/', async (req: Request, res: Response) => {
         //Validate permisions!!!
         const response = await GetBySpecialty(req.body.Id, req.body.Day)
+        res.send(response)
+    })
+
+    app.post('/timetable/getBySpecialtyWidthDoctor/', async (req: Request, res: Response) => {
+        //Validate permisions!!!
+        const response = await GetBySpecialtyWidthDoctor(req.body.Id, req.body.Day)
         res.send(response)
     })
 

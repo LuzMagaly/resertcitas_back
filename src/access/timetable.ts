@@ -58,6 +58,48 @@ import { prisma } from '../core/database'
         });
     }
 
+    export const selectBySpecialtyWithDoctor = async (Id_Especialidad: number[], day: string) => {
+        return await prisma.horarios.findMany({
+            where: {
+                AND: {
+                    Medicos: {
+                        Id_Especialidad: {
+                            in: Id_Especialidad
+                        }
+                    },
+                    Dia_Nombre: day
+                }
+            },
+            select: {
+                Id: true,
+                Id_Medico: true,
+                Medicos:{
+                    select:{
+                        Id: true,
+                        Id_Especialidad: true,
+                        Id_Usuario: true,
+                        Especialidades: {
+                            select: {
+                                Nombre: true
+                            }
+                        },
+                        Usuarios_Medicos_Id_UsuarioToUsuarios:{
+                            select: {
+                                Nombres: true,
+                                Apellido_Paterno: true,
+                                Apellido_Materno: true
+                            }
+                        }
+                    }
+                },
+                Hora_Inicio: true,
+                Hora_Fin: true,
+                Dia_Nombre: true,
+                Estado: true
+            }
+        });
+    }
+
 //#endregion
 
 //#region [ SAVE ]

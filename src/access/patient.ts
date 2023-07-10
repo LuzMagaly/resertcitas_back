@@ -8,6 +8,7 @@ import { prisma } from '../core/database'
                 Id: true,
                 Usuarios_Pacientes_Id_UsuarioToUsuarios: {
                     select: {
+                        Id: true,
                         DNI: true,
                         Nombres: true,
                         Apellido_Paterno: true,
