@@ -257,16 +257,17 @@ import { prisma } from '../core/database'
 
     export const updateRowPass = async (item: any) => {
         try {
-            return await prisma.usuarios.update({
+            const result =  await prisma.usuarios.update({
                 where: {
                     Id: parseInt(item.Id)
                 },
                 data: {
                     Contrasenia: (item.Contrasenia),
-                    Actualizado_Por: (item.Actualizado_Por),
+                    Actualizado_Por: parseInt(item.Id),
                     Actualizado_En: new Date().toISOString()
                 }
             });
+            return result
         }
         catch (err: any) {
             return err.message;

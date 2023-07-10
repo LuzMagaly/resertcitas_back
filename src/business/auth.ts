@@ -1,4 +1,4 @@
-import { selectByCredentials, selectByEmail } from "../access/user"
+import { selectByCredentials, selectByEmail, updateRowPass } from "../access/user"
 import { insertRow, updateRow } from '../access/session'
 import { DecryptRSA } from "../core/encrypt"
 import { generatorToken } from "../core/generator"
@@ -44,4 +44,8 @@ export const ValidateUser = async (Credentials: string, keepSessionOpen: boolean
 
 export const VerifyEmail = async (Email: string) => {
     return await selectByEmail(Email)
+}
+
+export const updatePasswordRow = async (Item: any) => {
+    return await updateRowPass(Item)
 }
