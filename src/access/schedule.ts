@@ -174,6 +174,44 @@ import { prisma } from '../core/database'
         });
     }
 
+    
+    export const selectBasicBySpecialty = async (Id_Especialidad: number[], Fecha: Date) => {
+        const citas: any = await prisma.citas.findMany({ select: { Id: true } })
+        return await prisma.agendaCalendario.findMany({
+            where: {
+                AND: {
+                    Medicos: {
+                        Id_Especialidad: {
+                            in: Id_Especialidad
+                        }
+                    },
+                    Fecha: new Date(Fecha).toISOString(),
+                    Id: {
+                        notIn: citas
+                    }
+                }
+            },
+            select: {
+                Id: true,
+                Medicos: {
+                    select: {
+                        Id_Especialidad: true,
+                        Especialidades: {
+                            select: {
+                                Nombre: true,
+                            }
+                        },
+                    }
+                },
+                _count: {
+                    select: {
+                        Id: true
+                    }
+                }
+            }
+        });
+    }
+
 //#endregion
 
 //#region [ SAVE ]

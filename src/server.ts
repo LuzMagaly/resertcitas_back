@@ -1,6 +1,7 @@
 import { Express } from 'express'
 import { Socket } from "socket.io"
 import { Appointment, Auth, Doctor, Office, Patient, Schedule, Specialty, Timetable, User } from './services'
+import { AppointmentSocket } from './sockets'
 
 export const Server = (app: Express, socket: Socket) => {
     Auth(app)
@@ -13,10 +14,7 @@ export const Server = (app: Express, socket: Socket) => {
     Timetable(app)
     User(app)
 
-    socket.on('message', (message: any) => {
-        console.log(message)
-        socket.broadcast.emit('messageBroadcast', message)
-    })
+    AppointmentSocket(socket)
 }
 
 export default Server
