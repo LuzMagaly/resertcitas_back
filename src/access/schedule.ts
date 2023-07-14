@@ -53,7 +53,6 @@ import { prisma } from '../core/database'
     export const selectBySpecialty = async (Id_Especialidad: number[], Fecha: Date) => {
         const citas: any = await prisma.citas.findMany({ select: { Id_AgendaCalendario: true } })
         const arrayCitas: number[] = citas.map((i: any) => i.Id_AgendaCalendario)
-        console.log(arrayCitas)
         return await prisma.agendaCalendario.findMany({
             where: {
                 AND: {
@@ -189,9 +188,7 @@ import { prisma } from '../core/database'
         AND "ESP"."Id" IN (${ Id_Especialidad.join() })
         AND "AGE"."Id" NOT IN (SELECT "Id_AgendaCalendario" FROM public."Citas")
         GROUP BY "MED"."Id_Especialidad", "ESP"."Nombre"`
-        console.log(query)
         const result = await prisma.$queryRawUnsafe(query)
-        console.log(result)
         return JSON.stringify(result)
     }
 
