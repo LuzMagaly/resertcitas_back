@@ -7,7 +7,7 @@ export const AppointmentSocket = (socket: Socket) => {
         //const packet = JSON.parse(message);
         console.log(message)
         //socket.broadcast.emit('messageBroadcast from server using sockets', message)
-        socket.emit('message', 'messageBroadcast from server using sockets')
+        //socket.emit('message', 'messageBroadcast from server using sockets')
     })
 }
 

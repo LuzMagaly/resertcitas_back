@@ -5,7 +5,7 @@ import { AppointmentSocket } from './sockets'
 
 export const Server = (app: Express, socket: Socket) => {
     Auth(app)
-    Appointment(app)
+    Appointment(app, socket)
     Doctor(app)
     Office(app)
     Patient(app)
