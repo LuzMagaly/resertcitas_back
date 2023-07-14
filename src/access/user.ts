@@ -180,6 +180,16 @@ import { prisma } from '../core/database'
                         Creado_En: true,
                         Actualizado_En: true
                     }
+                },
+                Medicos_Medicos_Id_UsuarioToUsuarios: {
+                    select: {
+                        Id: true
+                    }
+                },
+                Pacientes_Pacientes_Id_UsuarioToUsuarios: {
+                    select: {
+                        Id: true
+                    }
                 }
             }
         });

@@ -174,42 +174,17 @@ import { prisma } from '../core/database'
         });
     }
 
-    
     export const selectBasicBySpecialty = async (Id_Especialidad: number[], Fecha: Date) => {
-        const citas: any = await prisma.citas.findMany({ select: { Id: true } })
-        return await prisma.agendaCalendario.findMany({
-            where: {
-                AND: {
-                    Medicos: {
-                        Id_Especialidad: {
-                            in: Id_Especialidad
-                        }
-                    },
-                    Fecha: new Date(Fecha).toISOString(),
-                    Id: {
-                        notIn: citas
-                    }
-                }
-            },
-            select: {
-                Id: true,
-                Medicos: {
-                    select: {
-                        Id_Especialidad: true,
-                        Especialidades: {
-                            select: {
-                                Nombre: true,
-                            }
-                        },
-                    }
-                },
-                _count: {
-                    select: {
-                        Id: true
-                    }
-                }
-            }
-        });
+        const query = `SELECT "MED"."Id_Especialidad", "ESP"."Nombre", CAST(COUNT("MED"."Id_Especialidad") AS INTEGER) AS "Citas"
+        FROM public."Medicos" AS "MED"
+        INNER JOIN PUBLIC."Especialidades" AS "ESP" ON "MED"."Id_Especialidad" = "ESP"."Id"
+        INNER JOIN PUBLIC."AgendaCalendario" AS "AGE" on "AGE"."Id_Medico" = "MED"."Id"
+        WHERE "AGE"."Fecha" = '${ new Date(Fecha).toISOString() }'
+        AND "ESP"."Id" IN (${ Id_Especialidad.join() })
+        AND "AGE"."Id" NOT IN (SELECT "Id_AgendaCalendario" FROM public."Citas")
+        GROUP BY "MED"."Id_Especialidad", "ESP"."Nombre"`
+        const result = await prisma.$queryRawUnsafe(query)
+        return JSON.stringify(result)
     }
 
 //#endregion

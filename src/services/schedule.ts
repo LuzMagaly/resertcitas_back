@@ -1,5 +1,5 @@
 import { Express, Request, Response } from 'express'
-import { GetOne, GetByDoctor, GetBySpecialty, Insert, Update } from '../business/schedule'
+import { GetOne, GetByDoctor, GetBySpecialty, Insert, Update, GetBasicBySpecialty } from '../business/schedule'
 
 export const Schedule = (app: Express) => {
 
@@ -18,6 +18,12 @@ export const Schedule = (app: Express) => {
     app.post('/schedule/getBySpecialty/', async (req: Request, res: Response) => {
         //Validate permisions!!!
         const response = await GetBySpecialty(req.body.Id, req.body.Fecha)
+        res.send(response)
+    })
+
+    app.post('/schedule/getBasicBySpecialty/', async (req: Request, res: Response) => {
+        //Validate permisions!!!
+        const response = await GetBasicBySpecialty(req.body.Id, req.body.Fecha)
         res.send(response)
     })
 
