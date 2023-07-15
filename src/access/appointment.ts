@@ -65,6 +65,7 @@ import { prisma } from '../core/database'
     }
 
     export const selectByPatient = async (filters: any) => {
+        console.log(filters)
         return await prisma.citas.findMany({
             where: {
                 OR: [
@@ -94,6 +95,11 @@ import { prisma } from '../core/database'
                             Usuarios_Pacientes_Id_UsuarioToUsuarios: {
                                 DNI: (filters.DNI)
                             }
+                        }
+                    },
+                    {
+                        Pacientes: {
+                            Id: (filters.Id)
                         }
                     }
                 ]

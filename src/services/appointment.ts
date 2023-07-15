@@ -12,7 +12,7 @@ export const Appointment = (app: Express, socket: Socket) => {
 
     app.post('/appointment/getByPatient/', async (req: Request, res: Response) => {
         //Validate permisions!!!
-        const response = await GetByPatient(req.body.Id)
+        const response = await GetByPatient(req.body.Options)
         res.send(response)
     })
 
