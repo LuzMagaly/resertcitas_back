@@ -65,7 +65,6 @@ import { prisma } from '../core/database'
     }
 
     export const selectByPatient = async (filters: any) => {
-        console.log(filters)
         return await prisma.citas.findMany({
             where: {
                 OR: [
@@ -113,6 +112,70 @@ import { prisma } from '../core/database'
                         Consultorios: {
 
 
+                            select: {
+                                Nombre: true,
+                                Ubicacion: true
+                            }
+                        },
+                        Medicos: {
+                            select: {
+                                Usuarios_Medicos_Id_UsuarioToUsuarios: {
+                                    select: {
+                                        Nombres: true,
+                                        Apellido_Paterno: true,
+                                        Apellido_Materno: true,
+                                        Foto: true
+                                    }
+                                },
+                                Especialidades: {
+                                    select: {
+                                        Nombre: true,
+                                        Descripcion: true
+                                    }
+                                },
+                                Codigo: true,
+                                Grado_Instruccion: true
+                            },
+                        },
+                        Hora_Inicio: true,
+                        Hora_Fin: true,
+                        Turno: true,
+                        Fecha: true
+                    }
+                },
+                Pacientes: {
+                    select: {
+                        Usuarios_Pacientes_Id_UsuarioToUsuarios: {
+                            select: {
+                                DNI: true,
+                                Nombres: true,
+                                Apellido_Paterno: true,
+                                Apellido_Materno: true
+                            }
+                        }
+                    }
+                },
+                Boucher: true,
+                Monto: true,
+                Estado: true
+            }
+        });
+    }
+
+    export const selectByDate = async (date: any) => {
+        return await prisma.citas.findMany({
+            where: {
+                AgendaCalendario:{
+                    Fecha: new Date(date).toISOString()
+                }
+            },
+            select: {
+                Id: true,
+                Id_AgendaCalendario: true,
+                Id_Paciente: true,
+                AgendaCalendario: {
+                    select:{
+                        Consultorios: {
                             select: {
                                 Nombre: true,
                                 Ubicacion: true
