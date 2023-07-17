@@ -1,5 +1,5 @@
 import { Express, Request, Response } from 'express'
-import { GetOne, GetByPatient, Insert, Update, GetByDate } from '../business/appointment'
+import { GetOne, GetByPatient, Insert, Update, GetByDate, GetBySpecialties } from '../business/appointment'
 import { Socket } from 'socket.io'
 import { GetBasicBySpecialty, GetBySpecialty } from '../business/schedule'
 
@@ -13,6 +13,12 @@ export const Appointment = (app: Express, socket: Socket) => {
     app.post('/appointment/getByPatient/', async (req: Request, res: Response) => {
         //Validate permisions!!!
         const response = await GetByPatient(req.body.Options)
+        res.send(response)
+    })
+
+    app.post('/appointment/getBySpecialty/', async (req: Request, res: Response) => {
+        //Validate permisions!!!
+        const response = await GetBySpecialties(req.body.Id, req.body.Fecha)
         res.send(response)
     })
 
