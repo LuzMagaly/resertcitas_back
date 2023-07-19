@@ -162,17 +162,22 @@ import { prisma } from '../core/database'
         });
     }
 
-    export const selectBySpecialty = async (Id_Especialidad: number[], Fecha: Date) => {
+    export const selectBySpecialty = async (Id_Especialidad: number[], Fecha: Date, Estado: string) => {
         return await prisma.citas.findMany({
             where: {
-                AgendaCalendario:{
-                    AND:{
-                        Fecha: new Date(Fecha).toISOString(),
-                        Medicos: {
-                            Id_Especialidad: {
-                                in: Id_Especialidad
+                AND: {
+                    AgendaCalendario:{
+                        AND:{
+                            Fecha: new Date(Fecha).toISOString(),
+                            Medicos: {
+                                Id_Especialidad: {
+                                    in: Id_Especialidad
+                                }
                             }
                         }
+                    },
+                    Estado:{
+                        in: Estado
                     }
                 }
             },
@@ -329,6 +334,24 @@ import { prisma } from '../core/database'
                     Boucher: (item.Boucher),
                     Monto: parseInt(item.Monto),
                     Actualizado_Por: (item.Creado_Por),
+                    Actualizado_En: new Date().toISOString(),
+                    Estado: (item.Estado)
+                }
+            });
+        }
+        catch (err: any) {
+            return err.message;
+        }
+    }
+
+    export const updateStateRow = async (item: any) => {
+        try {
+            return await prisma.citas.update({
+                where: {
+                    Id: parseInt(item.Id)
+                },
+                data: {
+                    Actualizado_Por: (item.Actualizado_Por),
                     Actualizado_En: new Date().toISOString(),
                     Estado: (item.Estado)
                 }

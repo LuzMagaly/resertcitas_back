@@ -1,5 +1,5 @@
 import { Express, Request, Response } from 'express'
-import { GetOne, GetByPatient, Insert, Update, GetByDate, GetBySpecialties } from '../business/appointment'
+import { GetOne, GetByPatient, Insert, Update, GetByDate, GetBySpecialties, UpdateState } from '../business/appointment'
 import { Socket } from 'socket.io'
 import { GetBasicBySpecialty, GetBySpecialty } from '../business/schedule'
 
@@ -18,7 +18,7 @@ export const Appointment = (app: Express, socket: Socket) => {
 
     app.post('/appointment/getBySpecialty/', async (req: Request, res: Response) => {
         //Validate permisions!!!
-        const response = await GetBySpecialties(req.body.Id, req.body.Fecha)
+        const response = await GetBySpecialties(req.body.Id, req.body.Fecha, req.body.Estado)
         res.send(response)
     })
 
@@ -42,6 +42,12 @@ export const Appointment = (app: Express, socket: Socket) => {
     app.post('/appointment/update/', async (req: Request, res: Response) => {
         //Validate permisions!!!
         const response = await Update(req.body.Item)
+        res.send(response)
+    })
+
+    app.post('/appointment/updateState/', async (req: Request, res: Response) => {
+        //Validate permisions!!!
+        const response = await UpdateState(req.body.Item)
         res.send(response)
     })
 }
