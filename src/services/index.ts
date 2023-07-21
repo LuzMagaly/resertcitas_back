@@ -7,5 +7,6 @@ import Schedule from "./schedule"
 import Specialty from "./specialty"
 import Timetable from "./timetable"
 import User from "./user"
+import PermisionRol from "./permisionRol"
 
-export { Appointment, Auth, Doctor, Office, Patient, Schedule, Specialty, Timetable, User }
+export { Appointment, Auth, Doctor, Office, Patient, Schedule, Specialty, Timetable, User, PermisionRol }

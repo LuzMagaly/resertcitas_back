@@ -1,7 +1,11 @@
-import { selectAll, selectById, selectByFilters, insertRow, updateRow } from "../access/user"
+import { selectAll, selectById, selectByFilters, insertRow, updateRow, selectAllShort, updateRowPass, updateRowRol } from "../access/user"
 
 export const GetAll = async () => {
     return await selectAll()
+}
+
+export const GetAllShort = async () => {
+    return await selectAllShort()
 }
 
 export const GetOne = async (Id: number) => {
@@ -21,5 +25,9 @@ export const Update = async (Item: any) => {
 }
 
 export const UpdatePassword = async (Item: any) => {
-    return await updateRow(Item)
+    return await updateRowPass(Item)
+}
+
+export const UpdateRol = async (Item: any) => {
+    return await updateRowRol(Item)
 }

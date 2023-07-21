@@ -1,6 +1,6 @@
 import { Express } from 'express'
 import { Socket } from "socket.io"
-import { Appointment, Auth, Doctor, Office, Patient, Schedule, Specialty, Timetable, User } from './services'
+import { Appointment, Auth, Doctor, Office, Patient, PermisionRol, Schedule, Specialty, Timetable, User } from './services'
 import { AppointmentSocket } from './sockets'
 
 export const Server = (app: Express, socket: Socket) => {
@@ -13,7 +13,7 @@ export const Server = (app: Express, socket: Socket) => {
     Specialty(app)
     Timetable(app)
     User(app)
-
+    PermisionRol(app)
     AppointmentSocket(socket)
 }
 

@@ -19,12 +19,14 @@ INSERT INTO public."Roles" ("Id", "Nombre", "Nivel") VALUES (1, 'Paciente', '1')
 INSERT INTO public."Roles" ("Id", "Nombre", "Nivel") VALUES (2, 'Medico', '2');
 INSERT INTO public."Roles" ("Id", "Nombre", "Nivel") VALUES (3, 'Administrador', '3');
 
-INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Pacientes', 'Administración de todo el módulo de pacientes', '1', 'patient', 'Activo');
-INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Medicos', 'Administración de todo el módulo de médicos', '2', 'doctor', 'Activo');
-INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Horarios', 'Administración de horarios', '1', 'schedules', 'Activo');
-INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Agenda', 'Modificación de agendas', '2', 'timetable', 'Activo');
-INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Citas', 'Administración de todo el módulo de citas', '3', 'appointment', 'Activo');
-INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permiso_Pagos', 'Acceso a la sección de pacientes', '3', 'payments', 'Activo');
+INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Reservas', 'Reservar una cita', '1', '', 'Activo');
+INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Pacientes', 'Administración de todo el módulo de pacientes', '1', 'patient', 'Activo');
+INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Medicos', 'Administración de todo el módulo de médicos', '2', 'doctor', 'Activo');
+INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Horarios', 'Administración de horarios', '1', 'timetable', 'Activo');
+INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Agenda', 'Modificación de agendas', '2', 'schedules', 'Activo');
+INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Citas', 'Administración de todo el módulo de citas', '3', 'appointment', 'Activo');
+INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Permisos', 'Acceso a la sección de pacientes', '3', 'permisions', 'Activo');
+INSERT INTO public."Permisos" ("Nombre", "Descripcion", "Nivel", "Objetivo", "Estado") VALUES ('Usuarios', 'Acceso a la sección de pacientes', '3', 'users', 'Activo');
 
 INSERT INTO public."Usuarios" ("Id_Rol", "DNI", "Nombres", "Apellido_Paterno", "Apellido_Materno", "Fecha_Nacimiento", "Direccion", "Telefono", "Correo", "Estado", "Contrasenia", "Sexo", "Foto", "Creado_Por", "Actualizado_Por", "Creado_En", "Actualizado_En")
 VALUES (3, '12345678', 'Joaquin', 'Medina', 'Salas', '2002-08-19', 'Calle Los Álamos 203', '987654321', 'joaquinmedina@gmail.com', 'Activo', '1234', 'M', NULL, 1, NULL, '2022-11-15 23:50', NULL);

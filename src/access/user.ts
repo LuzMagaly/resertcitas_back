@@ -30,6 +30,39 @@ import { prisma } from '../core/database'
         });
     }
 
+    export const selectAllShort = async () => {
+        return await prisma.usuarios.findMany({
+            select: {
+                Id: true,
+                Id_Rol: true,
+                DNI: true,
+                Nombres: true,
+                Apellido_Paterno: true,
+                Apellido_Materno: true,
+                Fecha_Nacimiento: true,
+                Telefono: true,
+                Correo: true,
+                Estado:true,
+                Sexo:true,
+                Roles: {
+                    select: {
+                        Nombre: true
+                    }
+                },
+                Medicos_Medicos_Id_UsuarioToUsuarios:{
+                    select:{
+                        Id: true
+                    }
+                },
+                Pacientes_Pacientes_Id_UsuarioToUsuarios:{
+                    select:{
+                        Id: true
+                    }
+                }
+            }
+        });
+    }
+
     export const selectById = async (Id: number) => {
         return await prisma.usuarios.findFirst({
             where: {
@@ -275,6 +308,24 @@ import { prisma } from '../core/database'
                     Contrasenia: (item.Contrasenia),
                     Actualizado_Por: parseInt(item.Id),
                     Actualizado_En: new Date().toISOString()
+                }
+            });
+            return result
+        }
+        catch (err: any) {
+            return err.message;
+        }
+    }
+
+    export const updateRowRol = async (item: any) => {
+        try {
+            const result =  await prisma.usuarios.update({
+                where: {
+                    Id: parseInt(item.Id)
+                },
+                data: {
+                    Id_Rol: parseInt(item.Rol),
+                    Estado: (item.Estado),
                 }
             });
             return result

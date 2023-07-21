@@ -21,15 +21,24 @@ import { prisma } from '../core/database'
 
 //#region [ SAVE ]
 
-export const insertRow = async (item: any) => {
+export const insertRow = async (items: any[]) => {
     try {
-        return await prisma.rolPermiso.create({
-            data: {
-                Id_Rol: (item.Id_Rol),
-                Id_Permiso: (item.Id_Permiso),
-                Creado_Por: (item.Creado_Por)
+        await prisma.rolPermiso.deleteMany({
+            where: {
+                Id_Rol: (items[0].Id_Rol)
             }
         });
+        const result_insert = await items.map(async (item: any) => {
+            const result = await prisma.rolPermiso.create({
+                data: {
+                    Id_Rol: (item.Id_Rol),
+                    Id_Permiso: (item.Id_Permiso),
+                    Creado_Por: (item.Creado_Por)
+                }
+            });
+            return result
+        })
+        return result_insert
     }
     catch (err: any) {
         return err.message;

@@ -1,10 +1,16 @@
 import { Express, Request, Response } from 'express'
-import { GetAll, GetOne, FindUser, Insert, Update, UpdatePassword } from '../business/user'
+import { GetAll, GetOne, FindUser, Insert, Update, UpdatePassword, GetAllShort, UpdateRol } from '../business/user'
 
 export const User = (app: Express) => {
     app.post('/user/getAll/', async (req: Request, res: Response) => {
         //Validate permisions!!!
         const response = await GetAll()
+        res.send(response)
+    })
+
+    app.post('/user/getAllShort/', async (req: Request, res: Response) => {
+        //Validate permisions!!!
+        const response = await GetAllShort()
         res.send(response)
     })
 
@@ -35,6 +41,13 @@ export const User = (app: Express) => {
     app.post('/user/changePass/', async (req: Request, res: Response) => {
         //Validate permisions!!!
         const response = await UpdatePassword(req.body.Item)
+        res.send(response)
+    })
+
+
+    app.post('/user/updateRol/', async (req: Request, res: Response) => {
+        //Validate permisions!!!
+        const response = await UpdateRol(req.body.Item)
         res.send(response)
     })
 }

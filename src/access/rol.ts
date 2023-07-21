@@ -2,12 +2,21 @@ import { prisma } from '../core/database'
 
 //#region [ SELECT ]
 
-    export const selectAll = async () => {
+    export const selectAllWithPermisions = async () => {
         return await prisma.roles.findMany({
             select: {
                 Id: true,
                 Nombre: true,
                 Nivel: true,
+                RolPermiso:{
+                    select:{
+                        Id: true,
+                        Id_Rol: true,
+                        Id_Permiso: true,
+                        Creado_Por: true,
+                        Creado_En: true
+                    }
+                }
             }
         });
     }
